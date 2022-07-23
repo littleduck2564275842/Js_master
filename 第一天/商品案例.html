@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    table {
+      margin: 100px auto;
+      text-align: center;
+    }
+    div {
+      width: 532px;
+      border: 1px solid #999;
+      margin: 90px auto;
+    }
+    tr,
+    td,
+    th {
+      border: 1px solid #999;
+    }
+
+    input {
+      width: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <span>按照价格查找:</span> <input type="text" class="start"> - <input type="text" class="end"> <button class="price_search">搜索</button> <span>按照商品名称查找:</span> <input
+      type="text" class="search"> <button class="pname_search">查询</button>
+  </div>
+  <table cellspacing="0" cellpadding="0" width="500" height="400">
+    <thead>
+      <th>id</th>
+      <th>商品名称</th>
+      <th>价格</th>
+    </thead>
+    <tbody>
+
+    </tbody>
+    <script>
+      var data = [{
+        id: 1,
+        pname: '小米',
+        price: 3999
+      }, {
+        id: 2,
+        pname: 'oppo',
+        price: 2999
+      },
+      {
+        id: 3,
+        pname: 'vivo',
+        price: 1999
+      },]
+      var tbody = document.querySelector('tbody');
+      function setData(mydata) {
+        //每次渲染之前把tbody的内容清空
+        tbody.innerHTML = '';
+        mydata.forEach(function (obj) {
+          //把元素渲染到页面中
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td>' + obj.id + '</td><td>' + obj.pname + '</td><td>' + obj.price + '</td>';
+          tbody.appendChild(tr);
+        })
+      }
+      setData(data);
+      //按照价格搜索
+      //搜索按钮获取
+      var price_search = document.querySelector('.price_search');
+      //价格框
+      var start = document.querySelector('.start');
+      var end = document.querySelector('.end');
+      //查询按钮
+      var pname_search = document.querySelector('.pname_search');
+      //名称查询框
+      var search = document.querySelector('.search');
+      //搜索功能实现
+      price_search.addEventListener('click',function(){
+        var newdata = data.filter(function(value){
+          return value.price >= start.value && value.price <= end.value; 
+        })
+        setData(newdata);
+      })
+      //查询功能实现
+      var arr = [];
+      pname_search.addEventListener('click',function(){
+        data.some(function(value){
+          if(value.pname === search.value){
+            arr.push(value);
+            return true;//终止循环
+          }
+        })
+        setData(arr);
+      })
+    </script>
+  </table>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var obj = {
+      name: 'andy',
+      color: ['pink', 'purple'],
+      msg: {
+        error: function(){
+          console.log("错误");
+        }
+      }
+    }
+    var o = {};
+    //深拷贝
+    function DeepCopy(newObj,oldObj){
+      for (var k in oldObj) {
+        //拿到当前索引号的值
+        var item = obj[k];
+        //判断是否是数组
+        if (item instanceof Array) {
+          //如果是数组
+          newObj[k]= [];//如果是数组，color: [];
+          DeepCopy(newObj[k],item); //DeepCopy(color,['pink','purple'])
+        }else if(item instanceof Object){
+          //如果item是对象
+          newObj[k] = {};
+          DeepCopy(newObj[k],item);
+        }else{
+          //如果是简单数据类型
+          newObj[k] = item;//[] = ['pink','purple']
+        }
+      }
+    }
+    DeepCopy(o,obj);
+    console.log(o);
+  </script>
+</body>
+</html>

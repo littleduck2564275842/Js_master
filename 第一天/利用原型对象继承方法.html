@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function Father (name, age) {
+      this.name = name;
+      this.age = age;
+    }
+
+    function Son (name, age, score) {
+      Father.call(this, name, age);//属性继承
+      this.score = score;
+    }
+    //父类原型函数添加money方法
+    Father.prototype.money = function () {
+      console.log(10000);
+    }
+    // var son = new Father('li', 10, 101);
+    //子类继承父类方法
+    Son.prototype = new Father();//方法继承
+    //console.log(Son.prototype.constructor);//如果原型对象的构造器不指回自己的构造函数，则会等于父类的构造函数
+    Son.prototype.constructor = Son;//指回Son
+    // console.log(Son);
+    // console.log(Son);
+    // console.log(Son.money);
+    // console.log(son.money);
+    //console.log(Son.prototype.__proto__.__proto__);//null
+    var son1 = new Son('liu',10,1011);
+    // console.log(son1);
+    // console.log(son1.__proto__);//Son.prototype Son的原型对象
+  </script>
+</body>
+
+</html>
